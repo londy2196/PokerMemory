@@ -48,12 +48,22 @@ public class NewMemoryFrame extends MemoryFrame {
                } catch (IOException e2) {
                     e2.printStackTrace(); throw new RuntimeException("IO ERROR");
                 }
+                try {
+                	if(e.getActionCommand().equals("Straight Level")) newGame("straightlevel");
+                } catch (IOException e2) {
+                	e2.printStackTrace(); throw new RuntimeException("IO ERROR");
+                }
             }
         };
 
         JMenuItem flushLevelMenuItem = new JMenuItem("Flush Level");
         flushLevelMenuItem.addActionListener(menuHandler);
         memoryMenu.add(flushLevelMenuItem);
+
+        
+        JMenuItem straightLevelMenuItem = new JMenuItem("Straight Level");
+        straightLevelMenuItem.addActionListener(menuHandler);
+        memoryMenu.add(straightLevelMenuItem);
     }
 
     /**
@@ -83,6 +93,18 @@ public class NewMemoryFrame extends MemoryFrame {
         else {
             super.newGame(difficultyMode);
         }
+        if(difficultyMode.equalsIgnoreCase("straightlevel")) {
+        	this.setGameLevel(new StraightLevel(this.getTurnCounterLabel(), this));
+        	this.getLevelDescriptionLabel().setText("Straight Level");
+        	this.getTurnCounterLabel().reset();
+        	
+        	BorderLayout b1 = (BorderLayout) this.getContentPane().getLayout();
+        	this.getContentPane().remove(b1.getLayoutComponent(BorderLayout.CENTER));
+        	this.getContentPane().add(showCardDeck(), BorderLayout.CENTER);
+        	
+        	this.setVisible(true);
+        }
+        else { super.newGame(difficultyMode);}
     }
 
 }

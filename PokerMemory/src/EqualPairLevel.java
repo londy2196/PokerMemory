@@ -64,6 +64,7 @@ public class EqualPairLevel extends EasyLevel {
 	@Override
 	protected boolean turnUp(Card card) {
 		// the card may be turned
+		int score = 0;
 		if(this.getTurnedCardsBuffer().size() < getCardsToTurnUp()) 
 		{
 			this.getTurnedCardsBuffer().add(card);
@@ -72,6 +73,7 @@ public class EqualPairLevel extends EasyLevel {
 				// there are two cards faced up
 				// record the player's turn
 				this.getTurnsTakenCounter().increment();
+				
 				// get the other card (which was already turned up)
 				Card otherCard = (Card) this.getTurnedCardsBuffer().get(0);
 				// the cards match, so remove them from the list (they will remain face up)
