@@ -272,7 +272,7 @@ public class MemoryFrame extends JFrame {
 						"\r\n"+
 						"SAME RANK TRIO Level\r\n"+
 						"The game consists of a grid of distinct cards.  At the start of the game,\r\n"+
-						"every card is face down.  The object is to find all the trios \r\n"+
+						"every card is face down.  The objective is to find all the trios \r\n"+
 						"of cards with the same rank and turn them face up.\r\n"+
 						"\r\n"+
 						"Click on three cards to turn them face up. If the cards have the \r\n"+
@@ -283,7 +283,29 @@ public class MemoryFrame extends JFrame {
 						"is won when all cards are face up.\r\n"+
 						"\r\n"+
 						"Each time you flip two cards up, the turn counter will\r\n"+
-						"increase.  Try to win the game in the fewest number of turns!";
+						"increase.  Try to win the game in the fewest number of turns!\r\n"+
+                        "\r\n"+
+						"FLUSH Level\r\n"+
+						"The game consists of a grid of distinct cards. At the start of the game,\r\n"+
+						"every card is face down. A winning hand consists of all five cards with\r\n"+
+						"the same suit. If they have distinct suits, they will flip back down.\r\n"+
+						"If all 5 cards have the same suit, however, then they will remain up and\r\n"+
+						"the game continues until there's no cards left.\r\n"+
+                        "\r\n"+
+						"Each time you flip five cards up, the turn counter will\r\n"+
+						"increase. Try to win the game in the fewest number of turns!\r\n"+
+						"\r\n"+
+						"STRAIGHT Level\r\n"+
+						"The game consists of a grid of distinct cards. At the start of the game, \r\n"+
+						"every card is face down. A winning hand consists of five cards in a sequence with \r\n"+
+						"at least two distinct suits. Example of five cards in a sequence: \r\n"+
+						"8, 9, 10, J, Q\r\n"+
+						"\r\n"+
+						"If the five cards you selected are not in a sequence, or if they all have the \r\n"+
+						"same suit, then your turn was unsuccesful and the cards flip down again.\r\n"+
+						"Otherwise, the cards remain flipped upwards and the game continues \r\n"+
+						"until no cards remain.";
+						
 
 		JOptionPane.showMessageDialog(this, HOWTOPLAYTEXT
 				, "How To Play", JOptionPane.PLAIN_MESSAGE);
