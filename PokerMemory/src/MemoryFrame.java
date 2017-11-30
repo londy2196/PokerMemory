@@ -142,12 +142,8 @@ public class MemoryFrame extends JFrame {
 		Component horizontalGlue_1 = Box.createHorizontalGlue();
 		panel_1.add(horizontalGlue_1);
 
-		JLabel pointsLabel = new JLabel("Points:");
+		JLabel pointsLabel = new JLabel("Score: ");
 		panel_1.add(pointsLabel);
-
-		scoreLabel = new JLabel("New label");
-		scoreLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		panel_1.add(scoreLabel);
 
 		Component horizontalStrut_3 = Box.createHorizontalStrut(20);
 		panel_1.add(horizontalStrut_3);
@@ -208,6 +204,16 @@ public class MemoryFrame extends JFrame {
 		else if(difficultyMode.equalsIgnoreCase("ranktrio")){
 			this.setGameLevel(new RankTrioLevel(this.getTurnCounterLabel(), this));
 			this.getLevelDescriptionLabel().setText("Same Rank Trio Level");
+		}
+		
+		else if(difficultyMode.equalsIgnoreCase("flushlevel")) {
+			this.setGameLevel(new FlushLevel(this.getTurnCounterLabel(), this));
+			this.getLevelDescriptionLabel().setText("Flush Level");
+		}
+		
+		else if(difficultyMode.equalsIgnoreCase("straightlevel")) {
+			this.setGameLevel(new StraightLevel(this.getTurnCounterLabel(), this));
+			this.getLevelDescriptionLabel().setText("Straight Level");
 		}
 
 		else {

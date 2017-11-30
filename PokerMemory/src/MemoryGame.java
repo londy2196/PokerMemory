@@ -69,6 +69,7 @@ public class MemoryGame implements ActionListener {
 		newMenuItem("Equal Pair Level", difficultyMenu, this);
 		newMenuItem("Same Rank Trio Level", difficultyMenu, this);
 
+
 		// Help menu
 		JMenu helpMenu = new JMenu("Help");
 		menuBar.add(helpMenu);
