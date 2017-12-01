@@ -43,18 +43,27 @@ public class NewMemoryFrame extends MemoryFrame {
         
         ActionListener menuHandler = new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	dprintln("actionPerformed " + e.getActionCommand());
                 try {
                     if(e.getActionCommand().equals("Flush Level")) newGame("flushlevel");
+                    
+                    else if(e.getActionCommand().equals("Straight Level")) newGame("straightlevel");
                } catch (IOException e2) {
                     e2.printStackTrace(); throw new RuntimeException("IO ERROR");
                 }
             }
         };
-
+        
+// Agrega la opcion de escoger el nivel Flush Level al Menu "Memory"
         JMenuItem flushLevelMenuItem = new JMenuItem("Flush Level");
         flushLevelMenuItem.addActionListener(menuHandler);
         memoryMenu.add(flushLevelMenuItem);
+     // Agrega la opcion de escoger el nivel straight Level al Menu "Memory"
+        JMenuItem straightLevelMenuItem = new JMenuItem("Straight Level");
+        straightLevelMenuItem.addActionListener(menuHandler);
+        memoryMenu.add(straightLevelMenuItem);
     }
+    
 
     /**
      * Prepares a new game (first game or non-first game)
@@ -66,12 +75,14 @@ public class NewMemoryFrame extends MemoryFrame {
         this.getTurnCounterLabel().reset();
 
         // make a new card field with cards, and add it to the window
-
+        
+// Comienza un "New Game" del Difficulty mode seleccionado en el menu.
         if(difficultyMode.equalsIgnoreCase("flushlevel")) {
             this.setGameLevel(new FlushLevel(this.getTurnCounterLabel(), this));
             this.getLevelDescriptionLabel().setText("Flush Level");
           this.getTurnCounterLabel().reset();
-
+        
+          
            // clear out the content pane (removes turn counter label and card field)
             BorderLayout bl  = (BorderLayout) this.getContentPane().getLayout();
             this.getContentPane().remove(bl.getLayoutComponent(BorderLayout.CENTER));
@@ -80,6 +91,16 @@ public class NewMemoryFrame extends MemoryFrame {
             // show the window (in case this is the first game)
             this.setVisible(true);
         }
+        else if(difficultyMode.equalsIgnoreCase("straightlevel")) {
+          this.setGameLevel(new StraightLevel(this.getTurnCounterLabel(), this));
+          this.getLevelDescriptionLabel().setText("Straight Level");
+        this.getTurnCounterLabel().reset();
+        BorderLayout bl  = (BorderLayout) this.getContentPane().getLayout();
+        this.getContentPane().remove(bl.getLayoutComponent(BorderLayout.CENTER));
+        this.getContentPane().add(showCardDeck(), BorderLayout.CENTER);
+        }
+        
+        
         else {
             super.newGame(difficultyMode);
         }

@@ -3,7 +3,7 @@
  * also handles turning cards back down after a delay.
  *
  * @author Michael Leonhard (Original Author)
- * @author Modified by Bienvenido Vélez (UPRM)
+ * @author Modified by Bienvenido VÃ©lez (UPRM)
  * @version Sept 2017
  */
 
@@ -11,20 +11,19 @@ import java.util.Random;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import java.util.Arrays;
+public class StraightLevel extends GameLevel {
 
-public class FlushLevel extends GameLevel {
-	long score=0;
+	long score=1;
 	
-	
-	protected FlushLevel(TurnsTakenCounterLabel validTurnTime, JFrame mainFrame) {
+	protected StraightLevel(TurnsTakenCounterLabel validTurnTime, JFrame mainFrame) {
 		super(validTurnTime, 5, mainFrame);
 		this.getTurnsTakenCounter().setDifficultyModeLabel("Flush Level");
 		this.setCardsPerRow(10);
 		this.setRowsPerGrid(5);
 		this.setCardsToTurnUp(5);
 		this.setTotalUniqueCards(this.getRowsPerGrid() * this.getCardsPerRow());
-		this.getMainFrame().setScore(0);
-		
+		this.getMainFrame().setScore(score);
 	}
 
 	@Override
@@ -83,19 +82,95 @@ public class FlushLevel extends GameLevel {
 				// record the player's turn
 				this.getTurnsTakenCounter().increment();
 				
-				// get the other cards (which was already turned up)
+				// get the other cards that are face up.
 				Card otherCard = (Card) this.getTurnedCardsBuffer().get(0);
 				Card otherCard1 = (Card) this.getTurnedCardsBuffer().get(1);
 				Card otherCard2 = (Card) this.getTurnedCardsBuffer().get(2);
 				Card otherCard3 = (Card) this.getTurnedCardsBuffer().get(3);
 				
-				// the cards match, so remove them from the list (they will remain face up)
+				// Verifica si las cartas cumple con el criterio del juego, de ser asi Las mantiene levantadas
+				//Guarda los "Ranks" de las cartas seleccionadas.
+				String cardSuit[] = {card.getSuit(),otherCard.getSuit(),otherCard1.getSuit(),otherCard2.getSuit(),otherCard3.getSuit()};
+				String cardRank[] = {card.getRank(),otherCard.getRank(),otherCard1.getRank(),otherCard2.getRank(),otherCard3.getRank()};
+				
+				int[] numRank = new int[5];
+				
+					for(int h=0,k=0 ;h<=4;h++) {
+					if(cardRank[h].equals("2"))
+						numRank[k]=2;
 					
+					else if(cardRank[h].equals("3"))
+						numRank[k]=3;
+					
+					else if(cardRank[h].equals("4"))
+						numRank[k]=4;
+					
+					else if(cardRank[h].equals("5"))
+						numRank[k]=5;
+					
+					else if(cardRank[h].equals("6"))
+						numRank[k]=6;
+					
+					else if(cardRank[h].equals("7"))
+						numRank[k]=7;
+					
+					else if(cardRank[h].equals("8"))
+						numRank[k]=8;
+					
+					else if(cardRank[h].equals("9"))
+						numRank[k]=9;
+					
+					else if(cardRank[h].equals("t"))
+						numRank[k]=10;
+					
+					else if(cardRank[h].equals("j"))
+						numRank[k]=11;
+					
+					else if(cardRank[h].equals("q"))
+						numRank[k]=12;
+					
+					else if(cardRank[h].equals("k"))
+						numRank[k]=13;
+					
+					else if(cardRank[h].equals("a")) {
+						numRank[k]=20;
+					}
+					k=k+1;
+					
+					}
+					
+				
+					
+				//Rearegla el array para que el numero  esten sorteadas
+				 Arrays.sort(numRank);
+				 
+				boolean sameSuit= true;
 				//Verifica que las 5 Cartas levantadas tengan el mismo Suit.
-				if( otherCard.getSuit().equals( card.getSuit()) && otherCard1.getSuit().equals( card.getSuit()) && otherCard2.getSuit().equals( card.getSuit()) && otherCard3.getSuit().equals( card.getSuit()) ) {
+				for(int i=0;i<this.getCardsToTurnUp();i++) {
+					for(int j=i+1;j<this.getCardsToTurnUp();j++) {
+					if(j!=i && !(cardSuit[i].equals(cardSuit[j])))
+						sameSuit=false;}
+				}
+				int[] a = {10,11,12,13,20};
+				int[] b = {2,3,4,5,20};
+				boolean sequential=false;
+//				for(int i=0;i<4;i++) {
+					if(isSeq(numRank) || areEqual(numRank, a) || areEqual(numRank, b)) {
+//						System.out.println("numRank["+i+"] = "+numRank[i]+" | numRank["+(i+1)+"] = "+numRank[i+1]);
+						sequential=true;
+					}
+					else
+						sequential=false;
+//						i=4;
+//					break;
+					
+//				}
+				
+				if( sameSuit==false && sequential==true) {
 					
 					this.getTurnedCardsBuffer().clear();
-					this.getMainFrame().setScore(score+700);
+					
+					
 					}
 				// the cards do not match, so start the timer to turn them down
 				else 
@@ -108,10 +183,27 @@ public class FlushLevel extends GameLevel {
 		// there are already the number of EasyMode (two face up cards) in the turnedCardsBuffer
 		return false;
 	}
+	
+	public static boolean isSeq(int[] a) {
+		
+		for(int i=0; i<a.length-1;i++) {
+			if(!(a[i]==a[i+1]-1)) return false;
+		}
+		return true;
+	}
+	
+	public static boolean areEqual(int[] a, int[] b) {
+		for(int i=0; i<a.length;i++) {
+			if(a[i]!=b[i]) return false;
+		}
+		return true;
+	}
+	
+	
 	@Override
 	public String getMode() {
 		// TODO Auto-generated method stub
-		return "Flush Level";
+		return "Straight Level";
 	}
 	
 	@Override
@@ -123,3 +215,8 @@ public class FlushLevel extends GameLevel {
 		return true;
 	}
 }
+
+
+
+
+
