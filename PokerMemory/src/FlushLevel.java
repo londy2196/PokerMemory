@@ -90,12 +90,13 @@ public class FlushLevel extends GameLevel {
 				Card otherCard3 = (Card) this.getTurnedCardsBuffer().get(3);
 				
 				// the cards match, so remove them from the list (they will remain face up)
-					
+				String cardRank[] = {card.getRank(),otherCard.getRank(),otherCard1.getRank(),otherCard2.getRank(),otherCard3.getRank()};
+			    int x[]=ScoreManager.setValues(cardRank);
 				//Verifica que las 5 Cartas levantadas tengan el mismo Suit.
 				if( otherCard.getSuit().equals( card.getSuit()) && otherCard1.getSuit().equals( card.getSuit()) && otherCard2.getSuit().equals( card.getSuit()) && otherCard3.getSuit().equals( card.getSuit()) ) {
-					
 					this.getTurnedCardsBuffer().clear();
-					this.getMainFrame().setScore(score+700);
+					score = score + 700 +x[0]+x[1]+x[2]+x[3]+x[4] ;
+					this.getMainFrame().setScore(score);
 					}
 				// the cards do not match, so start the timer to turn them down
 				else 

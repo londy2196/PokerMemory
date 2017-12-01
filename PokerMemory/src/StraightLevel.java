@@ -14,7 +14,7 @@ import javax.swing.JFrame;
 import java.util.Arrays;
 public class StraightLevel extends GameLevel {
 
-	long score=1;
+	long score=0;
 	
 	protected StraightLevel(TurnsTakenCounterLabel validTurnTime, JFrame mainFrame) {
 		super(validTurnTime, 5, mainFrame);
@@ -93,56 +93,10 @@ public class StraightLevel extends GameLevel {
 				String cardSuit[] = {card.getSuit(),otherCard.getSuit(),otherCard1.getSuit(),otherCard2.getSuit(),otherCard3.getSuit()};
 				String cardRank[] = {card.getRank(),otherCard.getRank(),otherCard1.getRank(),otherCard2.getRank(),otherCard3.getRank()};
 				
-				int[] numRank = new int[5];
-				
-					for(int h=0,k=0 ;h<=4;h++) {
-					if(cardRank[h].equals("2"))
-						numRank[k]=2;
-					
-					else if(cardRank[h].equals("3"))
-						numRank[k]=3;
-					
-					else if(cardRank[h].equals("4"))
-						numRank[k]=4;
-					
-					else if(cardRank[h].equals("5"))
-						numRank[k]=5;
-					
-					else if(cardRank[h].equals("6"))
-						numRank[k]=6;
-					
-					else if(cardRank[h].equals("7"))
-						numRank[k]=7;
-					
-					else if(cardRank[h].equals("8"))
-						numRank[k]=8;
-					
-					else if(cardRank[h].equals("9"))
-						numRank[k]=9;
-					
-					else if(cardRank[h].equals("t"))
-						numRank[k]=10;
-					
-					else if(cardRank[h].equals("j"))
-						numRank[k]=11;
-					
-					else if(cardRank[h].equals("q"))
-						numRank[k]=12;
-					
-					else if(cardRank[h].equals("k"))
-						numRank[k]=13;
-					
-					else if(cardRank[h].equals("a")) {
-						numRank[k]=20;
-					}
-					k=k+1;
-					
-					}
-					
-				
-					
+				int[] x = ScoreManager.setValues(cardRank);
+						
 				//Rearegla el array para que el numero  esten sorteadas
-				 Arrays.sort(numRank);
+				 Arrays.sort(x);
 				 
 				boolean sameSuit= true;
 				//Verifica que las 5 Cartas levantadas tengan el mismo Suit.
@@ -155,7 +109,7 @@ public class StraightLevel extends GameLevel {
 				int[] b = {2,3,4,5,20};
 				boolean sequential=false;
 //				for(int i=0;i<4;i++) {
-					if(isSeq(numRank) || areEqual(numRank, a) || areEqual(numRank, b)) {
+					if(isSeq(x) || areEqual(x, a) || areEqual(x, b)) {
 //						System.out.println("numRank["+i+"] = "+numRank[i]+" | numRank["+(i+1)+"] = "+numRank[i+1]);
 						sequential=true;
 					}
@@ -169,7 +123,8 @@ public class StraightLevel extends GameLevel {
 				if( sameSuit==false && sequential==true) {
 					
 					this.getTurnedCardsBuffer().clear();
-					
+					score = score + 1000 + (100*x[4]);
+					this.getMainFrame().setScore(score);
 					
 					}
 				// the cards do not match, so start the timer to turn them down
