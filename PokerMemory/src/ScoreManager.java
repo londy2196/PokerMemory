@@ -11,6 +11,8 @@ public class ScoreManager extends MemoryGame {
 
 		private long score = 0;
 		
+		//Asigna Valores tipo int, a los Rank de las cartas.
+		
 		public static int[] setValues(String[] a) {
 			int[] numRank = new int[5];
 			
