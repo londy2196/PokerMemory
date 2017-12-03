@@ -1,9 +1,9 @@
 /**
- * Stores currently turned cards
- * also handles turning cards back down after a delay.
+ * Stores currently turned cards, allows only two cards to be uncovered on each turn
+ * Also handles turning cards back down after a delay if cards are different
  *
  * @author Michael Leonhard (Original Author)
- * @author Modified by Bienvenido Vélez (UPRM)
+ * @author Modified by Bienvenido VÃ©lez (UPRM)
  * @version Sept 2017
  */
 
@@ -12,30 +12,25 @@ import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
-public class FlushLevel extends GameLevel {
+public class EqualPairScore extends EasyLevel {
+
 	long score=0;
 	
-	
-	protected FlushLevel(TurnsTakenCounterLabel validTurnTime, JFrame mainFrame) {
-		super(validTurnTime, 5, mainFrame);
-		this.getTurnsTakenCounter().setDifficultyModeLabel("Flush Level");
-		this.setCardsPerRow(10);
-		this.setRowsPerGrid(5);
-		this.setCardsToTurnUp(5);
-		this.setTotalUniqueCards(this.getRowsPerGrid() * this.getCardsPerRow());
+	protected EqualPairScore(TurnsTakenCounterLabel validTurnTime, JFrame mainFrame) {
+		super(validTurnTime, mainFrame);
+		super.getTurnsTakenCounter().setDifficultyModeLabel("Medium Level");
 		this.getMainFrame().setScore(0);
-		
 	}
-
+	
 	@Override
 	protected void makeDeck() {
-		// Creates a deck to fill the 5x10 grid with all cards different from each other
+		// Creates a deck to fill the grid.  Each card appears twice in random places.
 		ImageIcon backIcon = this.getCardIcons()[this.getTotalCardsPerDeck()];
 
 		// make an array of card numbers: 0, 0, 1, 1, 2, 2, ..., 7, 7
 		// duplicate the image in as many cards as the input imageClones
 		int totalCardsInGrid = getRowsPerGrid() * getCardsPerRow();
-		int totalUniqueCards = totalCardsInGrid;
+		int totalUniqueCards = totalCardsInGrid/2;
 
 		// Generate one distinct random card number for each unique card	
 		int cardsToAdd[] = new int[totalCardsInGrid];
@@ -48,7 +43,8 @@ public class FlushLevel extends GameLevel {
 			int nextCardNo = rand.nextInt(getTotalCardsPerDeck());
 			if (!cardChosen[nextCardNo]) {
 				cardChosen[nextCardNo] = true;
-				cardsToAdd[chosenCount] = nextCardNo;
+				cardsToAdd[2*chosenCount] = nextCardNo;
+				cardsToAdd[2*chosenCount + 1] = nextCardNo;
 				chosenCount++;
 			}
 		}
@@ -70,62 +66,54 @@ public class FlushLevel extends GameLevel {
 
 	@Override
 	protected boolean turnUp(Card card) {
-		
-		// Turn up any card until all are turned up.
+		// the card may be turned
 		if(this.getTurnedCardsBuffer().size() < getCardsToTurnUp()) 
 		{
 			this.getTurnedCardsBuffer().add(card);
-			
-			
 			if(this.getTurnedCardsBuffer().size() == getCardsToTurnUp())
 			{
-				// there are five cards faced up
+				// there are two cards faced up
 				// record the player's turn
 				this.getTurnsTakenCounter().increment();
-				
-				// get the other cards (which was already turned up)
+				// get the other card (which was already turned up)
 				Card otherCard = (Card) this.getTurnedCardsBuffer().get(0);
-				Card otherCard1 = (Card) this.getTurnedCardsBuffer().get(1);
-				Card otherCard2 = (Card) this.getTurnedCardsBuffer().get(2);
-				Card otherCard3 = (Card) this.getTurnedCardsBuffer().get(3);
-				
-				// Las 5 cartas cumplen con el requisito de el nivel(they will remain face up)
-				String cardRank[] = {card.getRank(),otherCard.getRank(),otherCard1.getRank(),otherCard2.getRank(),otherCard3.getRank()};
-				//guarda los valores de los Ranks en un arreglo de forma integer.
-			    int x[]=ScoreManager.setValues(cardRank);
-			    
-				//Verifica que las 5 Cartas levantadas tengan el mismo Suit.
-				if( otherCard.getSuit().equals( card.getSuit()) && otherCard1.getSuit().equals( card.getSuit()) && otherCard2.getSuit().equals( card.getSuit()) && otherCard3.getSuit().equals( card.getSuit()) ) {
+				// the cards match, so remove them from the list (they will remain face up)
+				if( otherCard.getNum() == card.getNum()) {
 					this.getTurnedCardsBuffer().clear();
-					score = score + 700 +x[0]+x[1]+x[2]+x[3]+x[4] ;
+					score=score+50;
 					this.getMainFrame().setScore(score);
-					}
+				}
+					
 				// the cards do not match, so start the timer to turn them down
-				else 
-					{this.getTurnDownTimer().start();
-					 if(score>=5) {
-						 score = score -5;
+				else {
+					this.getTurnDownTimer().start();
+					if(score>=5) {
+						score=score-5;
 						this.getMainFrame().setScore(score);
-					 }
 					}
+				}
 			}
 			return true;
 		}
 		// there are already the number of EasyMode (two face up cards) in the turnedCardsBuffer
 		return false;
 	}
+
 	@Override
 	public String getMode() {
 		// TODO Auto-generated method stub
-		return "Flush Level";
+		return "MediumMode";
 	}
-	
+
 	@Override
-	protected boolean  isGameOver()
-	{
+	protected boolean  isGameOver(){
+
 		for (int i =0; i< this.getGrid().size();i++)
 			if(!this.getGrid().get(i).isFaceUp()) return false;
 
+
 		return true;
 	}
+
+
 }

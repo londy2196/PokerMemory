@@ -11,14 +11,16 @@ import java.util.Random;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import java.util.Arrays;
-public class StraightLevel extends GameLevel {
+public class ComboLevel extends GameLevel {
 
 	long score=0;
 	
-	protected StraightLevel(TurnsTakenCounterLabel validTurnTime, JFrame mainFrame) {
+	protected ComboLevel(TurnsTakenCounterLabel validTurnTime, JFrame mainFrame) {
 		super(validTurnTime, 5, mainFrame);
-		this.getTurnsTakenCounter().setDifficultyModeLabel("Straight Level");
+		this.getTurnsTakenCounter().setDifficultyModeLabel("Combo Level");
 		this.setCardsPerRow(10);
 		this.setRowsPerGrid(5);
 		this.setCardsToTurnUp(5);
@@ -78,6 +80,13 @@ public class StraightLevel extends GameLevel {
 			
 			if(this.getTurnedCardsBuffer().size() == getCardsToTurnUp())
 			{
+				// Menu que permite seleccionar el Estilo de carta que deseas jugar.
+				
+				String[] buttons= {"Flush Hand","Straight Hand","New Hand","Pass"};
+				int handSelector= JOptionPane.showOptionDialog(null, "Select Hand", "Hand Selection", JOptionPane.INFORMATION_MESSAGE, 0, null, buttons, buttons[3]);
+				System.out.println(handSelector);
+				
+				
 				// there are five cards faced up
 				// record the player's turn
 				this.getTurnsTakenCounter().increment();
@@ -117,21 +126,45 @@ public class StraightLevel extends GameLevel {
 					else
 						sequential=false;
 					
-					// Verifica si las cartas cumple con el criterio del juego, de ser asi Las mantiene levantadas
-				if( sameSuit==false && sequential==true) {
-					
-					this.getTurnedCardsBuffer().clear();
-					score = score + 1000 + (100*x[4]);
-					this.getMainFrame().setScore(score);
-					
+					//Escoger eltipo de Mano seleccionada.
+					if(handSelector==1) {
+						if( sameSuit==false && sequential==true) {
+							
+							this.getTurnedCardsBuffer().clear();
+							score = score + 1000 + (100*x[4]);
+							this.getMainFrame().setScore(score);
+							
+							}
+						// the cards do not match, so start the timer to turn them down
+						else 
+							{this.getTurnDownTimer().start();
+							  if(score>=5) {
+								 score = score -5;
+								 this.getMainFrame().setScore(score);}
+							 			
+							}
 					}
-				// the cards do not match, so start the timer to turn them down
-				else 
-					{this.getTurnDownTimer().start();
-					if(score>=5) {
-						 score = score -5;
-						this.getMainFrame().setScore(score); }
-					
+					//Escoger el tipo de Mano Seleccionada.
+					if(handSelector==0) {
+						
+						    
+							//Verifica que las 5 Cartas levantadas tengan el mismo Suit.
+							if( otherCard.getSuit().equals( card.getSuit()) && otherCard1.getSuit().equals( card.getSuit()) && otherCard2.getSuit().equals( card.getSuit()) && otherCard3.getSuit().equals( card.getSuit()) ) {
+								this.getTurnedCardsBuffer().clear();
+								score = score + 700 +x[0]+x[1]+x[2]+x[3]+x[4] ;
+								this.getMainFrame().setScore(score);
+								}
+							// the cards do not match, so start the timer to turn them down
+							else 
+								{this.getTurnDownTimer().start();
+								 if(score>=5) {
+									 score = score -5;
+									this.getMainFrame().setScore(score);
+								 }
+								}
+					}
+					if(handSelector==3){
+						this.getTurnDownTimer().start();
 					}
 			}
 			return true;
@@ -159,7 +192,7 @@ public class StraightLevel extends GameLevel {
 	@Override
 	public String getMode() {
 		// TODO Auto-generated method stub
-		return "Straight Level";
+		return "Combo Level";
 	}
 	
 	@Override
