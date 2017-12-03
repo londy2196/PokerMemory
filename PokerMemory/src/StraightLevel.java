@@ -128,8 +128,10 @@ public class StraightLevel extends GameLevel {
 				// the cards do not match, so start the timer to turn them down
 				else 
 					{this.getTurnDownTimer().start();
-					score = score -5;
-					this.getMainFrame().setScore(score);
+					if(score>=5) {
+						 score = score -5;
+						this.getMainFrame().setScore(score); }
+					
 					}
 			}
 			return true;

@@ -1,23 +1,10 @@
 import java.awt.BorderLayout;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import java.awt.GridLayout;
-import java.awt.Component;
-import javax.swing.Box;
-import javax.swing.border.LineBorder;
-import java.awt.Color;
-import javax.swing.BoxLayout;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 
 import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
+
 import java.io.IOException;
 import java.awt.event.ActionEvent;
 
@@ -48,6 +35,7 @@ public class NewMemoryFrame extends MemoryFrame {
                     if(e.getActionCommand().equals("Flush Level")) newGame("flushlevel");
                     
                     else if(e.getActionCommand().equals("Straight Level")) newGame("straightlevel");
+                    
                     
                     else if(e.getActionCommand().equals("Combo Level")) newGame("combolevel");
                     
@@ -120,6 +108,19 @@ public class NewMemoryFrame extends MemoryFrame {
         	this.getContentPane().add(showCardDeck(), BorderLayout.CENTER);
         	
         	this.setVisible(true);
+          }
+        else if(difficultyMode.equalsIgnoreCase("equalpair")) {
+            this.setGameLevel(new EqualPairScore(this.getTurnCounterLabel(), this));
+            this.getLevelDescriptionLabel().setText("Equal Pair");
+            this.getTurnCounterLabel().reset();
+          
+
+        	BorderLayout b1 = (BorderLayout) this.getContentPane().getLayout();
+        	this.getContentPane().remove(b1.getLayoutComponent(BorderLayout.CENTER));
+        	this.getContentPane().add(showCardDeck(), BorderLayout.CENTER);
+        	
+        	this.setVisible(true);
+         
           }
    
         else {
