@@ -122,6 +122,20 @@ public class NewMemoryFrame extends MemoryFrame {
         	this.setVisible(true);
          
           }
+        else if(difficultyMode.equalsIgnoreCase("ranktrio")) {
+            this.setGameLevel(new RankTrioWithScore(this.getTurnCounterLabel(), this));
+            this.getLevelDescriptionLabel().setText("Rank Trio");
+            this.getTurnCounterLabel().reset();
+          
+
+        	BorderLayout b1 = (BorderLayout) this.getContentPane().getLayout();
+        	this.getContentPane().remove(b1.getLayoutComponent(BorderLayout.CENTER));
+        	this.getContentPane().add(showCardDeck(), BorderLayout.CENTER);
+        	
+        	this.setVisible(true);
+         
+          }
+        
    
         else {
             super.newGame(difficultyMode);
