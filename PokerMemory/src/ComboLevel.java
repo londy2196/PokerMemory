@@ -70,13 +70,14 @@ public class ComboLevel extends GameLevel {
 
 	@Override
 	protected boolean turnUp(Card card) {
+
 		// Turn up any card until all are turned up.
 		if(this.getTurnedCardsBuffer().size() < getCardsToTurnUp()) 
 		{
 			this.getTurnedCardsBuffer().add(card);
-			card.turnUp();
-			
+	
 			if(this.getTurnedCardsBuffer().size() == getCardsToTurnUp()) {
+	            card.faceUp();
 				// Menu que permite seleccionar el Estilo de carta que deseas jugar.
 				String[] buttons= {"Straight", "Flush","4-of-a-kind","PASS"};
 				int handSelector= JOptionPane.showOptionDialog(null, "Select Hand", "Hand Selection", JOptionPane.INFORMATION_MESSAGE, 0, null, buttons, buttons[3]);
@@ -92,8 +93,6 @@ public class ComboLevel extends GameLevel {
 				Card otherCard1 = (Card) this.getTurnedCardsBuffer().get(1);
 				Card otherCard2 = (Card) this.getTurnedCardsBuffer().get(2);
 				Card otherCard3 = (Card) this.getTurnedCardsBuffer().get(3);
-				
-				
 				
 				//Guarda los "Suits" de las cartas seleccionadas.
 				String cardSuit[] = {card.getSuit(),otherCard.getSuit(),otherCard1.getSuit(),otherCard2.getSuit(),otherCard3.getSuit()};
@@ -229,6 +228,7 @@ public class ComboLevel extends GameLevel {
 
 		return true;
 	}
+
 }
 
 

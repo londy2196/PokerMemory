@@ -2,7 +2,7 @@
  * Represents a card, keeps Icons for front and back, handles mouse clicks
  *
  * @author Michael Leonhard (Original Author)
- * @author Modified by Bienvenido VÃ©lez (UPRM)
+ * @author Modified by Bienvenido Vélez (UPRM)
  * @version Sept 2017
  */
 
@@ -67,10 +67,15 @@ public class Card extends JLabel implements MouseListener
 		// the card is already face up
 		if(this.faceUp) return;
 		// ask manager to allow turn
-		this.faceUp = this.turnedManager.turnUp(this);
+		this.faceUp = this.turnedManager.turnUp(this);;
 		// allowed to turn, so change the picture
 		if(this.faceUp) this.setIcon(this.faceIcon);
 	}
+	
+	public void faceUp() {
+		this.faceUp = true;
+		this.setIcon(this.faceIcon);
+    }
 
 	/**
 	 * Turn card back over, face down. Usually after timer expires
