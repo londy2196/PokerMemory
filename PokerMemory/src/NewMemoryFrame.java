@@ -36,7 +36,7 @@ public class NewMemoryFrame extends MemoryFrame {
                     
                     else if(e.getActionCommand().equals("Straight Level")) newGame("straightlevel");
                     
-    //                else if(e.getActionCommand().equals("How To Play")) showNewInstructions();
+
                     
                     else if(e.getActionCommand().equals("Combo Level")) newGame("combolevel");
                     
@@ -153,5 +153,6 @@ public class NewMemoryFrame extends MemoryFrame {
         }
       
     }
+ 
 
 }

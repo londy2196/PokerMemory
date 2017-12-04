@@ -18,7 +18,7 @@ public class ComboLevel extends GameLevel {
 
 	long score=0;
 	int choices=0;
-	int handsLeft=0;
+	int successfulTurns=0;
 	
 	protected ComboLevel(TurnsTakenCounterLabel validTurnTime, JFrame mainFrame) {
 		super(validTurnTime, 5, mainFrame);
@@ -143,7 +143,7 @@ public class ComboLevel extends GameLevel {
 							score = score + 700 +x[0]+x[1]+x[2]+x[3]+x[4] ;
 							this.getMainFrame().setScore(score);
 							
-							handsLeft=+1;
+							successfulTurns=+1;
 						
 							}
 						// the cards do not match, so start the timer to turn them down
@@ -165,7 +165,7 @@ public class ComboLevel extends GameLevel {
 							score = score + 1000 + (100*x[4]);
 							this.getMainFrame().setScore(score);
 							
-							handsLeft=+1;
+							successfulTurns=+1;
 							
 						
 							
@@ -191,7 +191,7 @@ public class ComboLevel extends GameLevel {
 							score = score + 150 + y[0]*4;
 							this.getMainFrame().setScore(score);
 							
-							handsLeft=+1;
+							successfulTurns=+1;
 						}
 							
 							
@@ -220,18 +220,19 @@ public class ComboLevel extends GameLevel {
 						this.getTurnDownTimer().start();
 					}
 			}
+			if(successfulTurns==7) {
+				String[] options= {"Exit"};
+				int boxOptions= JOptionPane.showOptionDialog(null, "No Winning Hands Left \n ", "Game Over", JOptionPane.INFORMATION_MESSAGE, 0, null, options, options[0]);
+				System.out.println(boxOptions);
+				
+					if(boxOptions==0) {
+					System.exit(0);
+					}
+				}
 			return true;
 		}
 		
-		if(handsLeft==7) {
-		String[] options= {"Exit"};
-		int boxOptions= JOptionPane.showOptionDialog(null, "No Winning Hands Left \n ", "Game Over", JOptionPane.INFORMATION_MESSAGE, 0, null, options, options[0]);
-		System.out.println(boxOptions);
 		
-			if(boxOptions==0) {
-			System.exit(0);
-			}
-		}
 		
 		return false;
 	}

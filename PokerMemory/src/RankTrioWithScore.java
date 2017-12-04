@@ -9,11 +9,14 @@
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class RankTrioWithScore extends EqualPairLevel {
 
 	// TRIO LEVEL: The goal is to find, on each turn, three cards with the same rank
 	long score=0;
+	int successfulTurns=0;
+	
 	protected RankTrioWithScore(TurnsTakenCounterLabel validTurnTime, JFrame mainFrame) {
 		super(validTurnTime, mainFrame);
 		this.getTurnsTakenCounter().setDifficultyModeLabel("Trio Level");
@@ -75,6 +78,7 @@ public class RankTrioWithScore extends EqualPairLevel {
 					this.getTurnedCardsBuffer().clear();
 					score  = score + 100 + x[0] + x[1] + x[2];
 					this.getMainFrame().setScore(score);
+					successfulTurns=+1;
 				}
 				else
 				{
@@ -82,6 +86,15 @@ public class RankTrioWithScore extends EqualPairLevel {
 					this.getTurnDownTimer().start();
 				}
 			}
+			if(successfulTurns==7) {
+				String[] options= {"Exit"};
+				int boxOptions= JOptionPane.showOptionDialog(null, "No Winning Hands Left \n ", "Game Over", JOptionPane.INFORMATION_MESSAGE, 0, null, options, options[0]);
+				System.out.println(boxOptions);
+				
+					if(boxOptions==0) {
+					System.exit(0);
+					}
+				}
 			return true;
 		}
 		return false;
