@@ -17,6 +17,7 @@ import java.util.Arrays;
 public class ComboLevel extends GameLevel {
 
 	long score=0;
+	int choices=0;
 	
 	protected ComboLevel(TurnsTakenCounterLabel validTurnTime, JFrame mainFrame) {
 		super(validTurnTime, 5, mainFrame);
@@ -80,6 +81,7 @@ public class ComboLevel extends GameLevel {
 			
 			if(this.getTurnedCardsBuffer().size() == getCardsToTurnUp())
 			{
+				card.faceUp();
 				// Menu que permite seleccionar el Estilo de carta que deseas jugar.
 				
 				String[] buttons= {"Flush Hand","Straight Hand","New Hand","Pass"};
@@ -102,6 +104,10 @@ public class ComboLevel extends GameLevel {
 				String cardSuit[] = {card.getSuit(),otherCard.getSuit(),otherCard1.getSuit(),otherCard2.getSuit(),otherCard3.getSuit()};
 				//Guarda los "Ranks" de las cartas seleccionadas.
 				String cardRank[] = {card.getRank(),otherCard.getRank(),otherCard1.getRank(),otherCard2.getRank(),otherCard3.getRank()};
+				
+				String[] options= {"Exit"};
+				
+				int handsLeft=0;
 				
 				int[] x = ScoreManager.setValues(cardRank);
 						
@@ -127,6 +133,38 @@ public class ComboLevel extends GameLevel {
 						sequential=false;
 					
 					//Escoger eltipo de Mano seleccionada.
+					if(handSelector==0) {
+						
+					    
+						//Verifica que las 5 Cartas levantadas tengan el mismo Suit.
+						if( otherCard.getSuit().equals( card.getSuit()) && otherCard1.getSuit().equals( card.getSuit()) && otherCard2.getSuit().equals( card.getSuit()) && otherCard3.getSuit().equals( card.getSuit()) ) {
+							this.getTurnedCardsBuffer().clear();
+							score = score + 700 +x[0]+x[1]+x[2]+x[3]+x[4] ;
+							this.getMainFrame().setScore(score);
+							
+							handsLeft=+1;
+							
+							if(handsLeft==7) {
+							int boxOptions= JOptionPane.showOptionDialog(null, "No Winning Hands Left \n ", "Game Over", JOptionPane.INFORMATION_MESSAGE, 0, null, options, options[0]);
+							System.out.println(boxOptions);
+							
+								if(boxOptions==0) {
+								System.exit(0);
+								}
+							}
+							}
+						// the cards do not match, so start the timer to turn them down
+						else 
+							{this.getTurnDownTimer().start();
+							this.isGameOver();
+							
+							 if(score>=5) {
+								 score = score -5;
+								this.getMainFrame().setScore(score);
+								
+							 }
+							}
+				}
 					if(handSelector==1) {
 						if( sameSuit==false && sequential==true) {
 							
@@ -134,35 +172,70 @@ public class ComboLevel extends GameLevel {
 							score = score + 1000 + (100*x[4]);
 							this.getMainFrame().setScore(score);
 							
+							handsLeft=+1;
+							
+							if(handsLeft==7) {
+							int boxOptions= JOptionPane.showOptionDialog(null, "No Winning Hands Left \n ", "Game Over", JOptionPane.INFORMATION_MESSAGE, 0, null, options, options[0]);
+							System.out.println(boxOptions);
+							
+								if(boxOptions==0) {
+								System.exit(0);
+								}
+							}
+							
 							}
 						// the cards do not match, so start the timer to turn them down
 						else 
 							{this.getTurnDownTimer().start();
+							
 							  if(score>=5) {
 								 score = score -5;
 								 this.getMainFrame().setScore(score);}
 							 			
 							}
 					}
-					//Escoger el tipo de Mano Seleccionada.
-					if(handSelector==0) {
+					if (handSelector == 2) {
+						int [] setOfFour = Arrays.copyOfRange(x, 0, 4);
+						int[] y = new int[4];
+						Arrays.fill(y,  setOfFour[0]);
 						
-						    
-							//Verifica que las 5 Cartas levantadas tengan el mismo Suit.
-							if( otherCard.getSuit().equals( card.getSuit()) && otherCard1.getSuit().equals( card.getSuit()) && otherCard2.getSuit().equals( card.getSuit()) && otherCard3.getSuit().equals( card.getSuit()) ) {
-								this.getTurnedCardsBuffer().clear();
-								score = score + 700 +x[0]+x[1]+x[2]+x[3]+x[4] ;
-								this.getMainFrame().setScore(score);
+						if (Arrays.equals(y, setOfFour)) {
+							System.out.println(handSelector);
+							this.getTurnedCardsBuffer().clear();
+							score = score + 150 + y[0]*4;
+							this.getMainFrame().setScore(score);
+							
+								handsLeft=+1;
+							
+							if(handsLeft==7) {
+							int boxOptions= JOptionPane.showOptionDialog(null, "No Winning Hands Left \n ", "Game Over", JOptionPane.INFORMATION_MESSAGE, 0, null, options, options[0]);
+							System.out.println(boxOptions);
+							
+								if(boxOptions==0) {
+								System.exit(0);
 								}
-							// the cards do not match, so start the timer to turn them down
-							else 
-								{this.getTurnDownTimer().start();
-								 if(score>=5) {
-									 score = score -5;
-									this.getMainFrame().setScore(score);
-								 }
-								}
+							}
+						} else {
+							
+							setOfFour = Arrays.copyOfRange(x, 1, 5);
+					        Arrays.fill(y, setOfFour[0]);
+						
+						    if (Arrays.equals(y, setOfFour)) {
+						    	System.out.println(handSelector);
+						    	this.getTurnedCardsBuffer().clear();
+						    	score = score + 150 + y[1]*4;
+						    	this.getMainFrame().setScore(score);
+						    } else {
+						    	this.getTurnDownTimer().start();
+						    	if (score >= 10) {
+						    		score -= 10;
+						    		this.getMainFrame().setScore(score);
+						    	}
+						    }
+					    }
 					}
+					//Escoger el tipo de Mano Seleccionada.
+					
 					if(handSelector==3){
 						this.getTurnDownTimer().start();
 					}

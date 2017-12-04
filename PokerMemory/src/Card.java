@@ -72,6 +72,10 @@ public class Card extends JLabel implements MouseListener
 		if(this.faceUp) this.setIcon(this.faceIcon);
 	}
 
+	public void faceUp() {
+		this.faceUp = true;
+		this.setIcon(this.faceIcon);
+	}
 	/**
 	 * Turn card back over, face down. Usually after timer expires
 	 *

@@ -66,10 +66,14 @@ public class RankTrioWithScore extends EqualPairLevel {
 				// get the other card (which was already turned up)
 				Card otherCard1 = (Card) this.getTurnedCardsBuffer().get(0);
 				Card otherCard2 = (Card) this.getTurnedCardsBuffer().get(1);
+				
+				String[] cardRank = {card.getRank(), otherCard1.getRank(), otherCard2.getRank()};
+				int[] x = ScoreManager.setValues(cardRank);
+				
 				if((card.getRank().equals(otherCard1.getRank())) && (card.getRank().equals(otherCard2.getRank()))) {
 					// Three cards match, so remove them from the list (they will remain face up)
 					this.getTurnedCardsBuffer().clear();
-					score= score+100;
+					score  = score + 100 + x[0] + x[1] + x[2];
 					this.getMainFrame().setScore(score);
 				}
 				else
