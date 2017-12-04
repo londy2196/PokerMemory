@@ -8,7 +8,6 @@
  */
 
 import java.util.Random;
-
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -71,18 +70,15 @@ public class ComboLevel extends GameLevel {
 
 	@Override
 	protected boolean turnUp(Card card) {
-		
 		// Turn up any card until all are turned up.
 		if(this.getTurnedCardsBuffer().size() < getCardsToTurnUp()) 
 		{
 			this.getTurnedCardsBuffer().add(card);
+			card.turnUp();
 			
-			
-			if(this.getTurnedCardsBuffer().size() == getCardsToTurnUp())
-			{
+			if(this.getTurnedCardsBuffer().size() == getCardsToTurnUp()) {
 				// Menu que permite seleccionar el Estilo de carta que deseas jugar.
-				
-				String[] buttons= {"Flush Hand","Straight Hand","New Hand","Pass"};
+				String[] buttons= {"Straight", "Flush","4-of-a-kind","PASS"};
 				int handSelector= JOptionPane.showOptionDialog(null, "Select Hand", "Hand Selection", JOptionPane.INFORMATION_MESSAGE, 0, null, buttons, buttons[3]);
 				System.out.println(handSelector);
 				
@@ -96,6 +92,7 @@ public class ComboLevel extends GameLevel {
 				Card otherCard1 = (Card) this.getTurnedCardsBuffer().get(1);
 				Card otherCard2 = (Card) this.getTurnedCardsBuffer().get(2);
 				Card otherCard3 = (Card) this.getTurnedCardsBuffer().get(3);
+				
 				
 				
 				//Guarda los "Suits" de las cartas seleccionadas.
@@ -127,7 +124,7 @@ public class ComboLevel extends GameLevel {
 						sequential=false;
 					
 					//Escoger eltipo de Mano seleccionada.
-					if(handSelector==1) {
+					if(handSelector==0) {
 						if( sameSuit==false && sequential==true) {
 							
 							this.getTurnedCardsBuffer().clear();
@@ -138,16 +135,14 @@ public class ComboLevel extends GameLevel {
 						// the cards do not match, so start the timer to turn them down
 						else 
 							{this.getTurnDownTimer().start();
-							  if(score>=5) {
-								 score = score -5;
+							  if(score>=10) {
+								 score -= 10;
 								 this.getMainFrame().setScore(score);}
 							 			
 							}
 					}
 					//Escoger el tipo de Mano Seleccionada.
-					if(handSelector==0) {
-						
-						    
+					if(handSelector==1) {
 							//Verifica que las 5 Cartas levantadas tengan el mismo Suit.
 							if( otherCard.getSuit().equals( card.getSuit()) && otherCard1.getSuit().equals( card.getSuit()) && otherCard2.getSuit().equals( card.getSuit()) && otherCard3.getSuit().equals( card.getSuit()) ) {
 								this.getTurnedCardsBuffer().clear();
@@ -157,14 +152,45 @@ public class ComboLevel extends GameLevel {
 							// the cards do not match, so start the timer to turn them down
 							else 
 								{this.getTurnDownTimer().start();
-								 if(score>=5) {
-									 score = score -5;
+								 if(score>=10) {
+									 score -= 10;
 									this.getMainFrame().setScore(score);
 								 }
 								}
 					}
+					if (handSelector == 2) {
+						int [] setOfFour = Arrays.copyOfRange(x, 0, 4);
+						int[] y = new int[4];
+						Arrays.fill(y,  setOfFour[0]);
+						
+						if (Arrays.equals(y, setOfFour)) {
+							this.getTurnedCardsBuffer().clear();
+							score = score + 150 + y[0]*4;
+							this.getMainFrame().setScore(score);
+						} else {
+							
+							setOfFour = Arrays.copyOfRange(x, 1, 5);
+					        Arrays.fill(y, setOfFour[0]);
+						
+						    if (Arrays.equals(y, setOfFour)) {
+						    	this.getTurnedCardsBuffer().clear();
+						    	score = score + 150 + y[1]*4;
+						    	this.getMainFrame().setScore(score);
+						    } else {
+						    	this.getTurnDownTimer().start();
+						    	if (score >= 10) {
+						    		score -= 10;
+						    		this.getMainFrame().setScore(score);
+						    	}
+						    }
+					    }
+					}
 					if(handSelector==3){
 						this.getTurnDownTimer().start();
+						if (score >= 5) {
+							score -= 5;
+							this.getMainFrame().setScore(score);
+						}
 					}
 			}
 			return true;

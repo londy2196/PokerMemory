@@ -135,6 +135,17 @@ public class NewMemoryFrame extends MemoryFrame {
         	this.setVisible(true);
          
           }
+        else if(difficultyMode.equalsIgnoreCase("easy")) {
+        	this.setGameLevel(new EasyLevelWithScore(this.getTurnCounterLabel(), this));
+        	this.getLevelDescriptionLabel().setText("Easy Level");
+        	this.getTurnCounterLabel().reset();
+        	
+        	BorderLayout b1 = (BorderLayout) this.getContentPane().getLayout();
+        	this.getContentPane().remove(b1.getLayoutComponent(BorderLayout.CENTER));
+        	this.getContentPane().add(showCardDeck(), BorderLayout.CENTER);
+        	
+        	this.setVisible(true);
+        }
         
    
         else {

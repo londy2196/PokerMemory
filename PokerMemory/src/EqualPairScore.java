@@ -19,7 +19,7 @@ public class EqualPairScore extends EasyLevel {
 	protected EqualPairScore(TurnsTakenCounterLabel validTurnTime, JFrame mainFrame) {
 		super(validTurnTime, mainFrame);
 		super.getTurnsTakenCounter().setDifficultyModeLabel("Medium Level");
-		this.getMainFrame().setScore(0);
+		this.getMainFrame().setScore(score);
 	}
 	
 	@Override
@@ -80,7 +80,7 @@ public class EqualPairScore extends EasyLevel {
 				// the cards match, so remove them from the list (they will remain face up)
 				if( otherCard.getNum() == card.getNum()) {
 					this.getTurnedCardsBuffer().clear();
-					score=score+50;
+					score += 50;
 					this.getMainFrame().setScore(score);
 				}
 					
@@ -88,7 +88,7 @@ public class EqualPairScore extends EasyLevel {
 				else {
 					this.getTurnDownTimer().start();
 					if(score>=5) {
-						score=score-5;
+						score -= 5;
 						this.getMainFrame().setScore(score);
 					}
 				}

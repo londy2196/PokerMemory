@@ -129,7 +129,7 @@ public class StraightLevel extends GameLevel {
 				else 
 					{this.getTurnDownTimer().start();
 					if(score>=5) {
-						 score = score -5;
+						 score = score - 5;
 						this.getMainFrame().setScore(score); }
 					
 					}
