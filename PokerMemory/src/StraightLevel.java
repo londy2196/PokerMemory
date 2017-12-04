@@ -8,13 +8,24 @@
  */
 
 import java.util.Random;
-
+import javax.swing.JPanel;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+
 import java.util.Arrays;
 public class StraightLevel extends GameLevel {
 
 	long score=0;
+	private int successfulTurn = 0; // A counter for every successful turn.
+	
+	JPanel panel = new JPanel();
+	JLabel label = new JLabel("Congratulations!\r\n"+
+	"You have just beaten this level!\r\n"+
+			"\r\n"+
+	"If you want to play again, press\r\n"+
+			"the Memory tab on the top.");
+	
 	
 	protected StraightLevel(TurnsTakenCounterLabel validTurnTime, JFrame mainFrame) {
 		super(validTurnTime, 5, mainFrame);
@@ -24,6 +35,7 @@ public class StraightLevel extends GameLevel {
 		this.setCardsToTurnUp(5);
 		this.setTotalUniqueCards(this.getRowsPerGrid() * this.getCardsPerRow());
 		this.getMainFrame().setScore(score);
+
 	}
 
 	@Override
@@ -119,11 +131,11 @@ public class StraightLevel extends GameLevel {
 					
 					// Verifica si las cartas cumple con el criterio del juego, de ser asi Las mantiene levantadas
 				if( sameSuit==false && sequential==true) {
-					
+
 					this.getTurnedCardsBuffer().clear();
 					score = score + 1000 + (100*x[4]);
 					this.getMainFrame().setScore(score);
-					
+					this.successfulTurn++;
 					}
 				// the cards do not match, so start the timer to turn them down
 				else 
@@ -133,6 +145,17 @@ public class StraightLevel extends GameLevel {
 						this.getMainFrame().setScore(score); }
 					
 					}
+				if (this.successfulTurn == 7) {
+					JPanel panel = new JPanel();
+					JLabel label = new JLabel("Congratulations!\r\n"+
+							"You have just beaten this level!"+
+							"\r\n"+
+							"If you want to play again, click\r\n"+
+							"the Memory tab on the top-left corner\r\n"+
+							"to select another level.");
+					panel.add(label);
+					System.out.println(panel);
+				}
 			}
 			return true;
 		}

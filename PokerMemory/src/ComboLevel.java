@@ -81,9 +81,6 @@ public class ComboLevel extends GameLevel {
 				// Menu que permite seleccionar el Estilo de carta que deseas jugar.
 				String[] buttons= {"Straight", "Flush","4-of-a-kind","PASS"};
 				int handSelector= JOptionPane.showOptionDialog(null, "Select Hand", "Hand Selection", JOptionPane.INFORMATION_MESSAGE, 0, null, buttons, buttons[3]);
-				System.out.println(handSelector);
-				
-				
 				// there are five cards faced up
 				// record the player's turn
 				this.getTurnsTakenCounter().increment();
@@ -126,6 +123,7 @@ public class ComboLevel extends GameLevel {
 					if(handSelector==0) {
 						if( sameSuit==false && sequential==true) {
 							
+							System.out.println(handSelector);
 							this.getTurnedCardsBuffer().clear();
 							score = score + 1000 + (100*x[4]);
 							this.getMainFrame().setScore(score);
@@ -144,6 +142,8 @@ public class ComboLevel extends GameLevel {
 					if(handSelector==1) {
 							//Verifica que las 5 Cartas levantadas tengan el mismo Suit.
 							if( otherCard.getSuit().equals( card.getSuit()) && otherCard1.getSuit().equals( card.getSuit()) && otherCard2.getSuit().equals( card.getSuit()) && otherCard3.getSuit().equals( card.getSuit()) ) {
+								
+								System.out.println(handSelector);
 								this.getTurnedCardsBuffer().clear();
 								score = score + 700 +x[0]+x[1]+x[2]+x[3]+x[4] ;
 								this.getMainFrame().setScore(score);
@@ -163,6 +163,7 @@ public class ComboLevel extends GameLevel {
 						Arrays.fill(y,  setOfFour[0]);
 						
 						if (Arrays.equals(y, setOfFour)) {
+							System.out.println(handSelector);
 							this.getTurnedCardsBuffer().clear();
 							score = score + 150 + y[0]*4;
 							this.getMainFrame().setScore(score);
@@ -172,6 +173,7 @@ public class ComboLevel extends GameLevel {
 					        Arrays.fill(y, setOfFour[0]);
 						
 						    if (Arrays.equals(y, setOfFour)) {
+						    	System.out.println(handSelector);
 						    	this.getTurnedCardsBuffer().clear();
 						    	score = score + 150 + y[1]*4;
 						    	this.getMainFrame().setScore(score);
@@ -186,17 +188,14 @@ public class ComboLevel extends GameLevel {
 					}
 					if(handSelector==3){
 						this.getTurnDownTimer().start();
-						if (score >= 5) {
-							score -= 5;
-							this.getMainFrame().setScore(score);
 						}
-					}
 			}
 			return true;
-		}
+	}
 		
 		return false;
 	}
+
 	
 	public static boolean isSeq(int[] a) {
 		
