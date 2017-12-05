@@ -2,6 +2,7 @@ import java.awt.BorderLayout;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 import java.awt.event.ActionListener;
 
@@ -9,6 +10,8 @@ import java.io.IOException;
 import java.awt.event.ActionEvent;
 
 public class NewMemoryFrame extends MemoryFrame {
+	
+	
 
     public NewMemoryFrame() {
         super();
@@ -36,6 +39,7 @@ public class NewMemoryFrame extends MemoryFrame {
                     
                     else if(e.getActionCommand().equals("Straight Level")) newGame("straightlevel");
                     
+//                    else if(e.getActionCommand().equals("How To Play")) newShowInstructions();
 
                     
                     else if(e.getActionCommand().equals("Combo Level")) newGame("combolevel");
@@ -60,6 +64,7 @@ public class NewMemoryFrame extends MemoryFrame {
         memoryMenu.add(comboLevellMenuItem);
     }
     
+   
 
     /**
      * Prepares a new game (first game or non-first game)
@@ -153,6 +158,9 @@ public class NewMemoryFrame extends MemoryFrame {
         else {
             super.newGame(difficultyMode);
         }
+        
+        
+
       
     }
  
