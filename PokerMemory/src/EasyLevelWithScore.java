@@ -2,7 +2,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import java.util.Random;
 
-
+//NIVEL CREADO PARA ELIMINAR EL LABEL DEL EASY LEVEL.
 
 public class EasyLevelWithScore extends GameLevel {
 	

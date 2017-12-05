@@ -84,7 +84,7 @@ public class FlushLevel extends GameLevel {
 				// record the player's turn
 				this.getTurnsTakenCounter().increment();
 				
-				// get the other cards (which was already turned up)
+				// guarda la informacion de las 5 cartas levantadas.
 				Card otherCard = (Card) this.getTurnedCardsBuffer().get(0);
 				Card otherCard1 = (Card) this.getTurnedCardsBuffer().get(1);
 				Card otherCard2 = (Card) this.getTurnedCardsBuffer().get(2);
@@ -92,12 +92,15 @@ public class FlushLevel extends GameLevel {
 				
 				// Las 5 cartas cumplen con el requisito de el nivel(they will remain face up)
 				String cardRank[] = {card.getRank(),otherCard.getRank(),otherCard1.getRank(),otherCard2.getRank(),otherCard3.getRank()};
+				
 				//guarda los valores de los Ranks en un arreglo de forma integer.
 			    int x[]=ScoreManager.setValues(cardRank);
 			    
 				//Verifica que las 5 Cartas levantadas tengan el mismo Suit.
 				if( otherCard.getSuit().equals( card.getSuit()) && otherCard1.getSuit().equals( card.getSuit()) && otherCard2.getSuit().equals( card.getSuit()) && otherCard3.getSuit().equals( card.getSuit()) ) {
 					this.getTurnedCardsBuffer().clear();
+					//se aumenta el score segun las reglas del nivel.
+					//700 mas la suma de el valor de todos los ranks. 
 					score = score + 700 +x[0]+x[1]+x[2]+x[3]+x[4] ;
 					this.getMainFrame().setScore(score);
 					
@@ -106,15 +109,17 @@ public class FlushLevel extends GameLevel {
 				// the cards do not match, so start the timer to turn them down
 				else 
 					{this.getTurnDownTimer().start();
+					//si la puntuacion es mayor de 5, recibe una penalidad de 5 puntos por no conseguir un Winning hand.
 					 if(score>=5) {
 						 score = score -5;
 						this.getMainFrame().setScore(score);
 					 }
 					}
 			}
+			//Si el jugador a obtenido 7 Winning Hands, ya no quedan Winning hands disponibles. Se acaba el juego.
 			if(successfulTurns==7) {
 				String[] options= {"Exit"};
-				int boxOptions= JOptionPane.showOptionDialog(null, "No Winning Hands Left \n ", "Game Over", JOptionPane.INFORMATION_MESSAGE, 0, null, options, options[0]);
+				int boxOptions= JOptionPane.showOptionDialog(null, "Congrats!!You have beaten this level. \n ", "Game Over", JOptionPane.INFORMATION_MESSAGE, 0, null, options, options[0]);
 				System.out.println(boxOptions);
 				
 					if(boxOptions==0) {

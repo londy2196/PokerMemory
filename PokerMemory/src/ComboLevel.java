@@ -84,6 +84,7 @@ public class ComboLevel extends GameLevel {
 			{
 				//Forza a las cartas a levantarse una vez seleccionada.
 				card.faceUp();
+				
 				// Menu que permite seleccionar el Estilo de carta que deseas jugar.
 				
 				String[] buttons= {"Flush Hand","Straight Hand","New Hand","Pass"};
@@ -110,23 +111,27 @@ public class ComboLevel extends GameLevel {
 				
 				
 				
-				
+				//Array que guarda los valores de los Ranks en forma de integers.
 				int[] x = ScoreManager.setValues(cardRank);
 						
-				//Rearegla el array para que el numero  esten sorteadas
+				//Rearegla el array para que el numero  esten sorteados de menor a mayor.
 				 Arrays.sort(x);
 				 
 				boolean sameSuit= true;
+				
 				//Verifica que las 5 Cartas levantadas no tengan el mismo Suit.
+				//Si no tienen el mismo suit devuelve falso.
 				for(int i=0;i<this.getCardsToTurnUp();i++) {
 					for(int j=i+1;j<this.getCardsToTurnUp();j++) {
 					if(j!=i && !(cardSuit[i].equals(cardSuit[j])))
 						sameSuit=false;}
 				}
+				//Arrays que contienen los dos casos especiales de "Wining hand" para el straight level.
 				int[] a = {10,11,12,13,20};
 				int[] b = {2,3,4,5,20};
 				boolean sequential=false;
 
+				//Verifica que los parametros del juego se cumplan para otorgar puntuacion y dejar cartas levantadas.
 					if(isSeq(x) || areEqual(x, a) || areEqual(x, b)) {
 
 						sequential=true;
@@ -159,6 +164,7 @@ public class ComboLevel extends GameLevel {
 							 }
 							}
 				}
+					//Si se escoge el boton numero 2 correr el programa para winning hand de Straight Hand.
 					if(handSelector==1) {
 						if( sameSuit==false && sequential==true) {
 							
@@ -181,6 +187,7 @@ public class ComboLevel extends GameLevel {
 							 			
 							}
 					}
+					// Corre el codigo para la mano nueva generada.
 					if (handSelector == 2) {
 						int [] setOfFour = Arrays.copyOfRange(x, 0, 4);
 						int[] y = new int[4];
@@ -215,15 +222,17 @@ public class ComboLevel extends GameLevel {
 						    }
 					    }
 					}
-					//Escoger el tipo de Mano Seleccionada.
+					
+					//Si selecciona pass, bajar las cartas.
 					
 					if(handSelector==3){
 						this.getTurnDownTimer().start();
 					}
 			}
+			// Si el jugador a obtenido 7 Winning hands, no quedan mas Wining hands, se acaba el juego
 			if(successfulTurns==7) {
 				String[] options= {"Exit"};
-				int boxOptions= JOptionPane.showOptionDialog(null, "No Winning Hands Left \n ", "Game Over", JOptionPane.INFORMATION_MESSAGE, 0, null, options, options[0]);
+				int boxOptions= JOptionPane.showOptionDialog(null, "Congrats!! Your have beaten this level \n  ", "Game Over", JOptionPane.INFORMATION_MESSAGE, 0, null, options, options[0]);
 				System.out.println(boxOptions);
 				
 					if(boxOptions==0) {
@@ -237,7 +246,7 @@ public class ComboLevel extends GameLevel {
 		
 		return false;
 	}
-	
+	//metodo creado para verificar si las 5 cartas seleccionadas estan en secuencia.
 	public static boolean isSeq(int[] a) {
 		
 		for(int i=0; i<a.length-1;i++) {
@@ -245,7 +254,7 @@ public class ComboLevel extends GameLevel {
 		}
 		return true;
 	}
-	
+	//Metodo creado para verificar si de las 5 cartas seleccionadas, existen repeticiones.
 	public static boolean areEqual(int[] a, int[] b) {
 		for(int i=0; i<a.length;i++) {
 			if(a[i]!=b[i]) return false;

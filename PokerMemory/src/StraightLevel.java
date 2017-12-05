@@ -109,6 +109,7 @@ public class StraightLevel extends GameLevel {
 					if(j!=i && !(cardSuit[i].equals(cardSuit[j])))
 						sameSuit=false;}
 				}
+				//Arrays que contienen  los dos casos especiales del nivel A,2,3,4,5 o 10,J,Q,K,A
 				int[] a = {10,11,12,13,20};
 				int[] b = {2,3,4,5,20};
 				boolean sequential=false;
@@ -140,7 +141,7 @@ public class StraightLevel extends GameLevel {
 			}
 			if(successfulTurns==7) {
 				String[] options= {"Exit"};
-				int boxOptions= JOptionPane.showOptionDialog(null, "No Winning Hands Left \n ", "Game Over", JOptionPane.INFORMATION_MESSAGE, 0, null, options, options[0]);
+				int boxOptions= JOptionPane.showOptionDialog(null, "Congrats!! You have Beaten this Level. \n ", "Game Over", JOptionPane.INFORMATION_MESSAGE, 0, null, options, options[0]);
 				System.out.println(boxOptions);
 				
 					if(boxOptions==0) {
@@ -156,7 +157,7 @@ public class StraightLevel extends GameLevel {
 		
 		return false;
 	}
-	
+	//metodo creado para verificar si las 5 cartas seleccionadas estan en secuencia.
 	public static boolean isSeq(int[] a) {
 		
 		for(int i=0; i<a.length-1;i++) {
@@ -164,7 +165,7 @@ public class StraightLevel extends GameLevel {
 		}
 		return true;
 	}
-	
+	//Metodo creado para verificar si de las 5 cartas seleccionadas, existen repeticiones.
 	public static boolean areEqual(int[] a, int[] b) {
 		for(int i=0; i<a.length;i++) {
 			if(a[i]!=b[i]) return false;

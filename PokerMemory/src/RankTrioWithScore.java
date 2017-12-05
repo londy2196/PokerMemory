@@ -70,7 +70,9 @@ public class RankTrioWithScore extends EqualPairLevel {
 				Card otherCard1 = (Card) this.getTurnedCardsBuffer().get(0);
 				Card otherCard2 = (Card) this.getTurnedCardsBuffer().get(1);
 				
+				//Guarda el valor del rank de las 5 cartas seleccioandas.
 				String[] cardRank = {card.getRank(), otherCard1.getRank(), otherCard2.getRank()};
+				//Array que contiene los ranks en forma de integers.
 				int[] x = ScoreManager.setValues(cardRank);
 				
 				if((card.getRank().equals(otherCard1.getRank())) && (card.getRank().equals(otherCard2.getRank()))) {
@@ -86,9 +88,10 @@ public class RankTrioWithScore extends EqualPairLevel {
 					this.getTurnDownTimer().start();
 				}
 			}
+			// No quedan mas Winning hands, El juego termina
 			if(successfulTurns==12) {
 				String[] options= {"Exit"};
-				int boxOptions= JOptionPane.showOptionDialog(null, "No Winning Hands Left \n ", "Game Over", JOptionPane.INFORMATION_MESSAGE, 0, null, options, options[0]);
+				int boxOptions= JOptionPane.showOptionDialog(null, "Congrats!! You have beaten this Level. \n ", "Game Over", JOptionPane.INFORMATION_MESSAGE, 0, null, options, options[0]);
 				System.out.println(boxOptions);
 				
 					if(boxOptions==0) {

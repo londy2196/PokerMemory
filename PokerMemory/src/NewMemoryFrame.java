@@ -54,7 +54,7 @@ public class NewMemoryFrame extends MemoryFrame {
         JMenuItem straightLevelMenuItem = new JMenuItem("Straight Level");
         straightLevelMenuItem.addActionListener(menuHandler);
         memoryMenu.add(straightLevelMenuItem);
-        
+        //Agrega la opcion de escoger el nivel Combo level en el Menu " Memory".
         JMenuItem comboLevellMenuItem = new JMenuItem("Combo Level");
         comboLevellMenuItem.addActionListener(menuHandler);
         memoryMenu.add(comboLevellMenuItem);
@@ -110,6 +110,7 @@ public class NewMemoryFrame extends MemoryFrame {
         	
         	this.setVisible(true);
           }
+        // Si seleccionan equal pair, redirige el juego al nivel de Equal Pair son Puntuacion.
         else if(difficultyMode.equalsIgnoreCase("equalpair")) {
             this.setGameLevel(new EqualPairScore(this.getTurnCounterLabel(), this));
             this.getLevelDescriptionLabel().setText("Equal Pair");
@@ -123,6 +124,7 @@ public class NewMemoryFrame extends MemoryFrame {
         	this.setVisible(true);
          
           }
+        //Redirige el nivel al rank Trio con puntuacion.
         else if(difficultyMode.equalsIgnoreCase("ranktrio")) {
             this.setGameLevel(new RankTrioWithScore(this.getTurnCounterLabel(), this));
             this.getLevelDescriptionLabel().setText("Rank Trio");

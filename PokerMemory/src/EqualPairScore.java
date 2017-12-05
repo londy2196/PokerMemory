@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 
 public class EqualPairScore extends EasyLevel {
 
+	
 	long score=0;
 	
 	protected EqualPairScore(TurnsTakenCounterLabel validTurnTime, JFrame mainFrame) {
@@ -77,16 +78,20 @@ public class EqualPairScore extends EasyLevel {
 				this.getTurnsTakenCounter().increment();
 				// get the other card (which was already turned up)
 				Card otherCard = (Card) this.getTurnedCardsBuffer().get(0);
-				// the cards match, so remove them from the list (they will remain face up)
+				
+				// Las cartas son pares, se mantienen descubiertas.
 				if( otherCard.getNum() == card.getNum()) {
 					this.getTurnedCardsBuffer().clear();
+					// Se le suman 50 puntos por par descubierto.
 					score=score+50;
+					//agrega la puntuacion al main frame.
 					this.getMainFrame().setScore(score);
 				}
 					
 				// the cards do not match, so start the timer to turn them down
 				else {
 					this.getTurnDownTimer().start();
+					//Si la puntuacion no es mayor de 5, recibe una penalidad de 5 puntos por no descubrir un par.
 					if(score>=5) {
 						score=score-5;
 						this.getMainFrame().setScore(score);
