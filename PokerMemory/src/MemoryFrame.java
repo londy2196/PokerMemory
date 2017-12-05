@@ -250,7 +250,33 @@ public class MemoryFrame extends JFrame {
 	{
 		dprintln("MemoryGame.showInstructions()");
 		final String HOWTOPLAYTEXT = 
-				"FLUSH Level\r\n"+
+				"How To Play\r\n" +
+						"\r\n" +
+						"EQUAL PAIR Level\r\n"+
+						"The game consists of 8 pairs of cards.  At the start of the game,\r\n"+
+						"every card is face down.  The objective is to find all the pairs and\r\n"+
+						"turn them face up.\r\n"+
+						"\r\n"+
+						"Click on two cards to turn them face up. If the cards are the \r\n"+
+						"same, then you have discovered a pair.  The pair will remain\r\n"+
+						"turned up.  If the cards are different, they will flip back\r\n"+
+						"over automatically after a short delay.  Continue flipping\r\n"+
+						"cards until you have discovered all of the pairs.  The game\r\n"+
+						"is won when all cards are face up.\r\n"+
+						"\r\n"+
+						"SAME RANK TRIO Level\r\n"+
+						"The game consists of a grid of distinct cards.  At the start of the game,\r\n"+
+						"every card is face down.  The objective is to find all the trios \r\n"+
+						"of cards with the same rank and turn them face up.\r\n"+
+						"\r\n"+
+						"Click on three cards to turn them face up. If the cards have the \r\n"+
+						"same rank, then you have discovered a trio.  The trio will remain\r\n"+
+						"turned up.  If the cards are different, they will flip back\r\n"+
+						"over automatically after a short delay.  Continue flipping\r\n"+
+						"cards until you have discovered all of the pairs. The game\r\n"+
+						"is won when there's 4 cards left.\r\n"+
+						"\r\n"+
+						"FLUSH Level\r\n"+
 						"The game consists of a grid of 50 cards laying face down. The objective is\r\n"+
 						"to find 5 cards of the same suit (diamond, spade, clover, or heart)\r\n"+
 						"If they have the same suit, they will remain face up. Otherwise they\r\n"+
@@ -270,7 +296,6 @@ public class MemoryFrame extends JFrame {
 						"A four-of-a-kind consists of four cards of the same rank plus one\r\n"+
 						"additional card. The game is won when the player has had\r\n"+
 						"seven successful turns.";
-
 		JOptionPane.showMessageDialog(this, HOWTOPLAYTEXT
 				, "How To Play", JOptionPane.PLAIN_MESSAGE);
 	}
