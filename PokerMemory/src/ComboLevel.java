@@ -213,6 +213,8 @@ public class ComboLevel extends GameLevel {
 						    	this.getTurnedCardsBuffer().clear();
 						    	score = score + 150 + y[1]*4;
 						    	this.getMainFrame().setScore(score);
+						    	successfulTurns=+1;
+						    	
 						    } else {
 						    	this.getTurnDownTimer().start();
 						    	if (score >= 10) {
