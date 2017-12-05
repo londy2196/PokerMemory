@@ -16,7 +16,7 @@ public class ScoreManager extends MemoryGame {
 		public static int[] setValues(String[] a) {
 			int[] numRank = new int[5];
 			
-			for(int h=0,k=0 ;h<=4;h++) {
+			for(int h=0,k=0 ;h<a.length;h++) {
 			if(a[h].equals("2"))
 				numRank[k]=2;
 			
