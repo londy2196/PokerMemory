@@ -86,7 +86,7 @@ public class RankTrioWithScore extends EqualPairLevel {
 					this.getTurnDownTimer().start();
 				}
 			}
-			if(successfulTurns==7) {
+			if(successfulTurns==12) {
 				String[] options= {"Exit"};
 				int boxOptions= JOptionPane.showOptionDialog(null, "No Winning Hands Left \n ", "Game Over", JOptionPane.INFORMATION_MESSAGE, 0, null, options, options[0]);
 				System.out.println(boxOptions);

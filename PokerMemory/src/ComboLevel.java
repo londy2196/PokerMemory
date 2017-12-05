@@ -82,6 +82,7 @@ public class ComboLevel extends GameLevel {
 			
 			if(this.getTurnedCardsBuffer().size() == getCardsToTurnUp())
 			{
+				//Forza a las cartas a levantarse una vez seleccionada.
 				card.faceUp();
 				// Menu que permite seleccionar el Estilo de carta que deseas jugar.
 				

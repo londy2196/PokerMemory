@@ -11,10 +11,11 @@ import java.util.Random;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class FlushLevel extends GameLevel {
 	long score=0;
-	
+	int successfulTurns=0;
 	
 	protected FlushLevel(TurnsTakenCounterLabel validTurnTime, JFrame mainFrame) {
 		super(validTurnTime, 5, mainFrame);
@@ -99,6 +100,8 @@ public class FlushLevel extends GameLevel {
 					this.getTurnedCardsBuffer().clear();
 					score = score + 700 +x[0]+x[1]+x[2]+x[3]+x[4] ;
 					this.getMainFrame().setScore(score);
+					
+					successfulTurns=+1;
 					}
 				// the cards do not match, so start the timer to turn them down
 				else 
@@ -109,6 +112,15 @@ public class FlushLevel extends GameLevel {
 					 }
 					}
 			}
+			if(successfulTurns==7) {
+				String[] options= {"Exit"};
+				int boxOptions= JOptionPane.showOptionDialog(null, "No Winning Hands Left \n ", "Game Over", JOptionPane.INFORMATION_MESSAGE, 0, null, options, options[0]);
+				System.out.println(boxOptions);
+				
+					if(boxOptions==0) {
+					System.exit(0);
+					}
+				}
 			return true;
 		}
 		// there are already the number of EasyMode (two face up cards) in the turnedCardsBuffer
